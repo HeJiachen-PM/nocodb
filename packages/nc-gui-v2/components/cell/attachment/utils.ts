@@ -143,7 +143,7 @@ export const [useProvideAttachmentCell, useAttachmentCell] = useInjectionState(
       editEnabled,
       isLoading,
       api,
-      open,
+      open: () => open(),
       onDrop,
       modalVisible,
       FileIcon,
@@ -153,5 +153,5 @@ export const [useProvideAttachmentCell, useAttachmentCell] = useInjectionState(
       selectedImage,
     }
   },
-  'attachmentCell',
+  'useAttachmentCell',
 )

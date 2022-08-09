@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject } from '#imports'
 import { ChangePageInj, PaginationDataInj } from '~/context'
-import MdiKeyboardIcon from '~icons/mdi/keyboard-return'
 
-const paginatedData = inject(PaginationDataInj)
+const paginatedData = inject(PaginationDataInj)!
 
-const changePage = inject(ChangePageInj)
+const changePage = inject(ChangePageInj)!
 
-const count = computed(() => paginatedData?.value?.totalRows ?? Infinity)
+const count = computed(() => paginatedData.value?.totalRows ?? Infinity)
 
-const size = computed(() => paginatedData?.value?.pageSize ?? 25)
+const size = computed(() => paginatedData.value?.pageSize ?? 25)
 
 const page = computed({
   get: () => paginatedData?.value?.page ?? 1,
@@ -46,7 +45,7 @@ const page = computed({
         @keydown.enter="changePage(page)"
       >
         <template #append>
-          <MdiKeyboardIcon class="mt-1" @click="changePage(page)" />
+          <MdiKeyboardReturn class="mt-1" @click="changePage(page)" />
         </template>
       </v-text-field>
     </div>
@@ -57,7 +56,6 @@ const page = computed({
 
 <style scoped>
 :deep(.ant-pagination-item a) {
-  line-height: 21px !important;
-  @apply text-sm;
+  @apply text-sm !leading-[21px];
 }
 </style>
