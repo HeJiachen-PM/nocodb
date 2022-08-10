@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useLTARStoreOrThrow } from '#imports'
+import { inject, ref, useLTARStoreOrThrow } from '#imports'
 import { ActiveCellInj, IsFormInj, ReadonlyInj } from '~/context'
 
 interface Props {
@@ -11,11 +11,11 @@ const { value, item } = defineProps<Props>()
 
 const emit = defineEmits(['unlink'])
 
-const { relatedTableMeta } = useLTARStoreOrThrow()
+const { relatedTableMeta } = useLTARStoreOrThrow()!
 
-const readonly = inject(ReadonlyInj, false)
-const active = inject(ActiveCellInj, ref(false))
-const isForm = inject(IsFormInj)
+const readonly = inject(ReadonlyInj, false)!
+const active = inject(ActiveCellInj, ref(false))!
+const isForm = inject(IsFormInj)!
 
 const expandedFormDlg = ref(false)
 </script>
@@ -27,6 +27,7 @@ const expandedFormDlg = ref(false)
     @click="expandedFormDlg = true"
   >
     <span class="name">{{ value }}</span>
+
     <div v-show="active || isForm" v-if="!readonly" class="flex align-center">
       <MdiCloseThick class="unlink-icon text-xs text-gray-500/50 group-hover:text-gray-500" @click.stop="emit('unlink')" />
     </div>

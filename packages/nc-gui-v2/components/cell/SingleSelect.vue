@@ -1,7 +1,6 @@
 <script lang="ts" setup>
 import type { Select as AntSelect } from 'ant-design-vue'
-import type { SelectOptionType } from 'nocodb-sdk'
-import { computed, inject } from '#imports'
+import { computed, inject, ref, useEventListener, watch } from '#imports'
 import { ActiveCellInj, ColumnInj } from '~/context'
 
 interface Props {
@@ -28,9 +27,10 @@ const vModel = computed({
 const options = computed(() => {
   if (column?.value.colOptions) {
     const opts = column.value.colOptions
-      ? column.value.colOptions.options.filter((el: SelectOptionType) => el.title !== '') || []
+      ? // todo: fix colOptions type, options does not exist as a property
+        (column.value.colOptions as any).options.filter((el: any) => el.title !== '') || []
       : []
-    for (const op of opts.filter((el: SelectOptionType) => el.order === null)) {
+    for (const op of opts.filter((el: any) => el.order === null)) {
       op.title = op.title.replace(/^'/, '').replace(/'$/, '')
     }
     return opts
@@ -58,7 +58,7 @@ useEventListener(document, 'click', handleClose)
 
 watch(isOpen, (n, _o) => {
   if (n === false) {
-    aselect.value.blur()
+    aselect.value?.blur()
   }
 })
 </script>
