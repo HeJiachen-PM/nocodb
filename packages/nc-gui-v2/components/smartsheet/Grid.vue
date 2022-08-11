@@ -24,6 +24,7 @@ import {
   IsFormInj,
   IsGridInj,
   IsLockedInj,
+  IsPublicInj,
   MetaInj,
   PaginationDataInj,
   ReloadViewDataHookInj,
@@ -35,6 +36,8 @@ const meta = inject(MetaInj)
 
 const view = inject(ActiveViewInj)
 
+const isPublicView = inject(IsPublicInj, ref(false))
+
 // keep a root fields variable and will get modified from
 // fields menu and get used in grid and gallery
 const fields = inject(FieldsInj, ref([]))
@@ -44,8 +47,6 @@ const isLocked = inject(IsLockedInj, false)
 const reloadViewDataHook = inject(ReloadViewDataHookInj)
 
 // todo: get from parent ( inject or use prop )
-const isPublicView = false
-
 const isView = false
 
 const selected = reactive<{ row: number | null; col: number | null }>({ row: null, col: null })
@@ -79,8 +80,13 @@ const {
 } = useViewData(meta, view as any, xWhere)
 
 const { loadGridViewColumns, updateWidth, resizingColWidth, resizingCol } = useGridViewColumnWidth(view as any)
-
-onMounted(loadGridViewColumns)
+onMounted(() => {
+  if (!isPublicView.value) {
+    loadGridViewColumns()
+  } else {
+    loadGridViewColumns(fields.value)
+  }
+})
 
 provide(IsFormInj, ref(false))
 provide(IsGridInj, true)
@@ -146,7 +152,7 @@ const clearCell = async (ctx: { row: number; col: number }) => {
 const { copy } = useClipboard()
 
 const makeEditable = (row: Row, col: ColumnType) => {
-  if (isPublicView || editEnabled || isView) {
+  if (isPublicView.value || editEnabled || isView) {
     return
   }
   if (!isPkAvail.value && !row.rowMeta.new) {

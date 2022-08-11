@@ -10,6 +10,14 @@ export function useMetas() {
   const metas = useState<{ [idOrTitle: string]: TableType | any }>('metas', () => ({}))
   const loadingState = useState<Record<string, boolean>>('metas-loading-state', () => ({}))
 
+  const setMeta = async (model: any) => {
+    metas.value = {
+      ...metas.value,
+      [model.id!]: model,
+      [model.title]: model,
+    }
+  }
+
   const getMeta = async (tableIdOrTitle: string, force = false): Promise<TableType | TableInfoType | null> => {
     if (!force && metas.value[tableIdOrTitle]) return metas.value[tableIdOrTitle]
 
@@ -71,5 +79,5 @@ export function useMetas() {
     }
   }
 
-  return { getMeta, clearAllMeta, metas, removeMeta }
+  return { getMeta, clearAllMeta, metas, removeMeta, setMeta }
 }
