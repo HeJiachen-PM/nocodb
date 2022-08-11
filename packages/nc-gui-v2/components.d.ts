@@ -112,6 +112,7 @@ declare module '@vue/runtime-core' {
     MdiKeyStar: typeof import('~icons/mdi/key-star')['default']
     MdiLink: typeof import('~icons/mdi/link')['default']
     MdiLinkVariantRemove: typeof import('~icons/mdi/link-variant-remove')['default']
+    MdiLogin: typeof import('~icons/mdi/login')['default']
     MdiLogout: typeof import('~icons/mdi/logout')['default']
     MdiMagnify: typeof import('~icons/mdi/magnify')['default']
     MdiMenuDown: typeof import('~icons/mdi/menu-down')['default']
