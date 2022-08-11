@@ -21,7 +21,7 @@ const {
   showAll,
   hideAll,
   saveOrUpdate,
-} = useViewColumns(activeView, meta, false, () => reloadDataHook.trigger())
+} = useViewColumns(activeView, meta, () => reloadDataHook.trigger())
 
 watch(
   () => (activeView.value as any)?.id,
@@ -85,9 +85,9 @@ const onMove = (event: { moved: { newIndex: number } }) => {
         </div>
         <div class="nc-fields-list py-1">
           <Draggable :list="fields" item-key="id" @change="onMove($event)">
-            <template #item="{ element: field }">
+            <template #item="{ element: field, index: index }">
               <div v-show="filteredFieldList.includes(field)" :key="field.id" class="px-2 py-1 flex" @click.stop>
-                <a-checkbox v-model:checked="field.show" class="flex-shrink" @change="saveOrUpdate(field, i)">
+                <a-checkbox v-model:checked="field.show" class="flex-shrink" @change="saveOrUpdate(field, index)">
                   <span class="text-xs">{{ field.title }}</span>
                 </a-checkbox>
                 <div class="flex-1" />

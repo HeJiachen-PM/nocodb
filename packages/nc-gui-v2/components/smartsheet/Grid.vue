@@ -94,8 +94,10 @@ provide(PaginationDataInj, paginationData)
 provide(ChangePageInj, changePage)
 
 reloadViewDataHook?.on(async () => {
+  if (!isPublicView) {
+    loadAggCommentsCount()
+  }
   await loadData()
-  loadAggCommentsCount()
 })
 
 const selectCell = (row: number, col: number) => {
