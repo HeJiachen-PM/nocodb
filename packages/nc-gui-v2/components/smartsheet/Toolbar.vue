@@ -12,7 +12,7 @@ const isPublic = inject(IsPublicInj, ref(false))
 
     <SmartsheetToolbarFieldsMenu v-if="isGrid" :show-system-fields="false" />
 
-    <SmartsheetToolbarColumnFilterMenu v-if="isGrid && !isPublic" />
+    <SmartsheetToolbarColumnFilterMenu v-if="isGrid" />
 
     <SmartsheetToolbarSortListMenu v-if="isGrid && !isPublic" />
 
