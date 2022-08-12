@@ -81,7 +81,8 @@ function onVisibleChange() {
             {{ $t('general.edit') }}
           </div>
         </a-menu-item>
-        <a-menu-item v-if="!virtual" v-t="['a:column:set-primary']" @click="setAsPrimaryValue">
+        <!-- TODO:  v-t="['a:column:set-primary']" causes runtime directive on non-root -->
+        <a-menu-item v-if="!virtual" @click="setAsPrimaryValue">
           <div class="nc-column-edit nc-header-menu-item">
             <MdiStarIcon class="text-primary" />
 
