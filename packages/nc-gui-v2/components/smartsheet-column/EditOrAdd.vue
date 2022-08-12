@@ -63,13 +63,6 @@ async function onSubmit() {
   vVisible.value = false
 }
 
-// create column meta if it's a new column
-watchEffect(() => {
-  if (!isEdit.value && formState.value.altered !== 1) {
-    generateNewColumnMeta()
-  }
-})
-
 // focus and select the column name field
 const antInput = ref()
 watchEffect(() => {
