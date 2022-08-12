@@ -14,7 +14,7 @@ const isPublic = inject(IsPublicInj, ref(false))
 
     <SmartsheetToolbarColumnFilterMenu v-if="isGrid" />
 
-    <SmartsheetToolbarSortListMenu v-if="isGrid && !isPublic" />
+    <SmartsheetToolbarSortListMenu v-if="isGrid" />
 
     <SmartsheetToolbarShareView v-if="(isForm || isGrid) && !isPublic" />
 
