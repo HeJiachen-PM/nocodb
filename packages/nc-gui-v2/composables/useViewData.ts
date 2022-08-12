@@ -34,16 +34,27 @@ export function useViewData(
     throw new Error('Table meta is not available')
   }
 
-  const paginationData = ref<PaginatedType>({ page: 1, pageSize: 25 })
+  const _paginationData = ref<PaginatedType>({ page: 1, pageSize: 25 })
   const aggCommentCount = ref<{ row_id: string; count: number }[]>([])
   const galleryData = ref<GalleryType | undefined>(undefined)
   const formColumnData = ref<FormType | undefined>(undefined)
   const formViewData = ref<FormType | undefined>(undefined)
 
+  let isPublic = inject(IsPublicInj, ref(false))
   const { project } = useProject()
   const { fetchSharedViewData, paginationData: sharedPaginationData } = useSharedView()
   const { $api } = useNuxtApp()
-  let isPublic = inject(IsPublicInj, ref(false))
+
+  const paginationData = computed({
+    get: () => (isPublic.value ? sharedPaginationData.value : _paginationData.value),
+    set: (value) => {
+      if (isPublic.value) {
+        sharedPaginationData.value = value
+      } else {
+        _paginationData.value = value
+      }
+    },
+  })
 
   const selectedAllRecords = computed({
     get() {
@@ -339,15 +350,6 @@ export function useViewData(
       })
     }
   }
-
-  watch(
-    () => paginationData.value,
-    () => {
-      if (!isPublic.value) return
-
-      sharedPaginationData.value = paginationData.value
-    },
-  )
 
   return {
     loadData,
