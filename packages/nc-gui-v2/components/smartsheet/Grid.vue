@@ -94,9 +94,7 @@ provide(PaginationDataInj, paginationData)
 provide(ChangePageInj, changePage)
 
 reloadViewDataHook?.on(async () => {
-  if (!isPublicView) {
-    loadAggCommentsCount()
-  }
+  loadAggCommentsCount()
   await loadData()
 })
 
@@ -413,7 +411,7 @@ const expandForm = (row: Row, state: Record<string, any>) => {
               </template>
             </SmartsheetRow>
 
-            <tr v-if="!isLocked">
+            <tr v-if="!isLocked && !isPublicView">
               <td
                 v-t="['c:row:add:grid-bottom']"
                 :colspan="visibleColLength + 1"
