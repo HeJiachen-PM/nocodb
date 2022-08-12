@@ -398,7 +398,12 @@ onMounted(async () => {
               </div>
             </a-button>
             <template #overlay>
-              <SmartsheetColumnEditOrAdd ref="editOrAddRef" @submit="submitCallback" @cancel="showColumnDropdown = false" />
+              <SmartsheetColumnEditOrAdd
+                ref="editOrAddRef"
+                v-model:visible="showColumnDropdown"
+                @click.stop
+                @submit="submitCallback"
+              />
             </template>
           </a-dropdown>
         </template>

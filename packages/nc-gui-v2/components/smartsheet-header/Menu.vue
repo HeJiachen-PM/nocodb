@@ -63,7 +63,7 @@ function onVisibleChange() {
     <span />
     <template #overlay>
       <SmartsheetColumnEditOrAdd
-        :edit-column-dropdown="editColumnDropdown"
+        v-model:visible="editColumnDropdown"
         @click.stop
         @keydown.stop
         @cancel="editColumnDropdown = false"
@@ -74,7 +74,7 @@ function onVisibleChange() {
     <MdiMenuDownIcon class="text-grey nc-ui-dt-dropdown" />
     <template #overlay>
       <a-menu class="shadow bg-white">
-        <a-menu-item @click="editColumnDropdown = true">
+        <a-menu-item @click.stop="editColumnDropdown = true">
           <div class="nc-column-edit nc-header-menu-item">
             <MdiEditIcon class="text-primary" />
             <!-- Edit -->

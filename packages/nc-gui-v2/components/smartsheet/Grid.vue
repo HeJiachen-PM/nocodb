@@ -322,14 +322,14 @@ const expandForm = (row: Row, state: Record<string, any>) => {
                 </div>
               </th>
               <!-- v-if="!isLocked && !isVirtual && !isPublicView && _isUIAllowed('add-column')" -->
-              <th v-t="['c:column:add']" @click="addColumnDropdown = true">
+              <th v-t="['c:column:add']" @click.stop="addColumnDropdown = true">
                 <a-dropdown v-model:visible="addColumnDropdown" :trigger="['click']">
                   <div class="h-full w-[60px] flex align-center justify-center">
                     <MdiPlus class="text-sm" />
                   </div>
 
                   <template #overlay>
-                    <SmartsheetColumnEditOrAdd @click.stop @keydown.stop @cancel="addColumnDropdown = false" />
+                    <SmartsheetColumnEditOrAdd v-model:visible="addColumnDropdown" @click.stop @keydown.stop />
                   </template>
                 </a-dropdown>
               </th>
